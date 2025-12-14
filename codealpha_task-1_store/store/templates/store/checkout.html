@@ -1,0 +1,54 @@
+{% extends "store/base.html" %}
+
+{% block title %}Checkout{% endblock %}
+
+{% block content %}
+<h1 class="mb-3">Checkout</h1>
+<p class="lead">Order summary: <strong>₹{{ total }}</strong></p>
+
+<form id="checkout-form" method="post" class="mt-4">
+    {% csrf_token %}
+    
+    <div class="mb-3">
+        <label for="full_name" class="form-label">Full name *</label>
+        <input type="text" id="full_name" name="full_name"
+               class="form-control" placeholder="Ice Kumar" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="phone" class="form-label">Mobile number *</label>
+        <input type="tel" id="phone" name="phone"
+               class="form-control" placeholder="+91 98xxx xxx xx" required>
+    </div>
+
+    <div class="mb-3">
+        <label for="address" class="form-label">Full address *</label>
+        <textarea id="address" name="address" rows="3"
+                  class="form-control"
+                  placeholder="Door no, street, area, city, pincode" required></textarea>
+    </div>
+
+    <h4 class="mt-4 mb-3">Select payment</h4>
+    <div class="form-check">
+        <input class="form-check-input" type="radio" id="pay-cash"
+               name="payment_method" value="cash" checked>
+        <label class="form-check-label" for="pay-cash">
+            Cash on delivery
+        </label>
+    </div>
+    <div class="form-check mb-4">
+        <input class="form-check-input" type="radio" id="pay-online"
+               name="payment_method" value="online">
+        <label class="form-check-label" for="pay-online">
+            GPay / Card (online)
+        </label>
+    </div>
+
+    <button type="submit" class="btn btn-success">
+        Continue
+    </button>
+    <a href="{% url 'cart' %}" class="btn btn-link ms-2">
+        Back to cart
+    </a>
+</form>
+{% endblock %}

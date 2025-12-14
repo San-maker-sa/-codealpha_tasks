@@ -1,0 +1,18 @@
+{% extends "store/base.html" %}
+
+{% block title %}Order placed{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <h1 class="mb-3">Thank you!</h1>
+    <p class="lead">Your order has been placed successfully.</p>
+    <p>Your order number is <strong>{{ order.id }}</strong>.</p>
+
+    <a href="{% url 'product_list' %}" class="btn btn-primary mt-3">
+        Back to shop
+    </a>
+    <a href="{% url 'my_orders' %}" class="btn btn-outline-secondary mt-3 ms-2">
+        View my orders
+    </a>
+</div>
+{% endblock %}

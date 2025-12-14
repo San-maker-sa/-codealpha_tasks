@@ -1,0 +1,54 @@
+{% extends "store/base.html" %}
+
+{% block title %}Cart{% endblock %}
+
+{% block content %}
+<h1 class="mb-4">Your Cart</h1>
+
+{% if items %}
+<table class="table table-striped align-middle">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th class="text-center">Qty</th>
+            <th class="text-end">Line total (₹)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for item in items %}
+        <tr>
+            <td>{{ item.product.name }}</td>
+            <td class="text-center">{{ item.quantity }}</td>
+            <td class="text-end">₹{{ item.line_total }}</td>
+            <td class="text-end">
+                <a href="{% url 'remove_from_cart' item.product.id %}"
+                   class="btn btn-sm btn-outline-danger">
+                    Remove
+                </a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+<div class="d-flex justify-content-between align-items-center mt-3">
+    <h4 class="mb-0">Total: ₹{{ total }}</h4>
+    <div>
+        <a href="{% url 'product_list' %}" class="btn btn-outline-secondary me-2">
+            Continue shopping
+        </a>
+        <form action="{% url 'checkout' %}" method="get" class="d-inline">
+            <button type="submit" class="btn btn-success">
+                Place order
+            </button>
+        </form>
+    </div>
+</div>
+{% else %}
+<p>Your cart is empty.</p>
+<a href="{% url 'product_list' %}" class="btn btn-primary mt-3">
+    Go to products
+</a>
+{% endif %}
+{% endblock %}
